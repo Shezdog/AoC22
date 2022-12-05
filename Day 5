@@ -1,0 +1,44 @@
+stacks =   [['H','B','V','W','N','M','L','P'],
+            ['M','Q','H'],
+            ['N','D','B','G','F','Q','M','L'],
+            ['Z','T','F','Q','M','W','G'],
+            ['M','T','H','P'],
+            ['C','B','M','J','D','H','G','T'],
+            ['M','N','B','F','V','R'],
+            ['P','L','H','M','R','G','S'],
+            ['P','D','B','C','N']]
+
+def empty_crane():
+    for i in range(0,len(crane)):
+        prep = crane.pop()
+        stacks[stack_to - 1].append(prep)
+
+def pick_up():
+    if len(crane) ==3:
+        empty_crane()
+    lift = stacks[stack_from - 1].pop()
+    crane.append(lift)
+
+with open('day5.txt') as input_data:
+    data = [line.strip() for line in input_data.readlines()]
+
+crane = []
+for line in data:
+    instructions = line.split()
+    amount, stack_from, stack_to = int(instructions[1]), int(instructions[3]), int(instructions[5])
+    
+    # Part 1
+    # for i in range(0, amount):
+    #     lift = stacks[stack_from-1].pop()
+    #     place = stacks[stack_to-1].append(lift)
+
+    # Part 2
+    for i in range(0,amount):
+        pick_up()
+        print("crane:", crane)
+        if i+1 == amount:
+            empty_crane()
+        print(stacks[stack_from-1],"\n", stacks[stack_to-1])
+
+for i in stacks:
+    print(i[-1], end = '')
